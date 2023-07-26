@@ -52,7 +52,8 @@
         
             # MH pooled odds ratios (relative effect measures combined in their natural scale):
             OR.mh <- sum(w.i * OR.i) / sum(w.i)                
-            lnOR.mh <- sum(w.i * log(OR.i)) / sum(w.i)
+            # lnOR.mh <- sum(w.i * log(OR.i)) / sum(w.i)
+            lnOR.mh <- log(OR.mh)
             
             # Same method for calculating confidence intervals around pooled OR as epi.2by2 so results differ from page 304 of Egger, Smith and Altman:            
             G <- a.i * d.i / N.i
@@ -67,7 +68,8 @@
             sumHQ <- sum(H * Q)
             sumGQ <- sum(G * Q)
             sumGQ.HP <- sum(GQ.HP)
-            var.lnOR.mh <- sumGP / (2 * sumG^2) + sumGQ.HP/(2 * sumGH) + sumHQ/(2 * sumH^2)
+            # var.lnOR.mh <- sumGP / (2 * sumG^2) + sumGQ.HP/(2 * sumGH) + sumHQ/(2 * sumH^2)
+            var.lnOR.mh <- sumGP / (2 * sumG^2) + sumGQ.HP/(2 * sumG * sumH) + sumHQ/(2 * sumH^2)
             SE.lnOR.mh <- sqrt(var.lnOR.mh)
             SE.OR.mh <- exp(SE.lnOR.mh)
             lower.OR.mh <- exp(lnOR.mh - z * SE.lnOR.mh)
